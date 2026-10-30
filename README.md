@@ -31,4 +31,4 @@ A professional, full-stack pet care management and e-commerce platform built for
 ### 1. Clone or Open Project
 Open your project directory in your terminal:
 ```bash
-cd "C:\Users\pc\OneDrive\Desktop\Pet Shop gemini"
+cd "C:\Users\pc\OneDrive\Desktop\Pet Shop"
