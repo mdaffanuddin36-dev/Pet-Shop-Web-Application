@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poket Vet & Pet Shop</title>
+    <!-- Font Awesome for UI Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/pet-2.css">
+</head>
+<body>
+    <section id="home">
+        <!-- Main Navigation Header -->
+        <header>
+            <nav class="top-nav">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="POKET VET & PET SHOP" onerror="this.onerror=null; this.src='https://placehold.co/180x55/8b5cf6/ffffff?text=POKET+VET';">
+                </div>
+                <ul class="login">
+                    <li id="nav-login"><a href="#" id="open-login-modal"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+                    <li id="nav-register"><a href="#" id="open-register-modal"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+                    <li id="nav-admin"><a href="#" id="open-admin-modal"><i class="fa-solid fa-plus-circle"></i> Admin Panel</a></li>
+                    <li id="nav-logout" style="display: none;"><a href="#" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                </ul>           
+            </nav>
+
+            <div class="sub-nav">
+                <ul class="nav">
+                    <li><a href="#home" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li><a href="#shop"><i class="fa-solid fa-store"></i> Shop</a></li>
+                    <li><a href="#services"><i class="fa-solid fa-hand-holding-heart"></i> Services</a></li>
+                    <li><a href="#veterinary"><i class="fa-solid fa-stethoscope"></i> Veterinary</a></li>
+                    <li><a href="#about"><i class="fa-solid fa-circle-info"></i> About Me</a></li>
+                </ul>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search for cats, dogs, food, services...">
+                </div>
+            </div>
+        </header>
+
+        <!-- Categories Section -->
+        <div class="category" id="categories-container">
+            <!-- Dynamically Populated by JavaScript -->
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="content-wrapper">
+            <section class="section-header">
+                <div>
+                    <h2 id="active-category-title">All Categories</h2>
+                    <p id="active-category-desc">Browse our services, veterinary care, and pet shop essentials.</p>
+                </div>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-type="all">All Items</button>
+                    <button class="filter-btn" data-type="service">Services & Vet</button>
+                    <button class="filter-btn" data-type="product">Products & Food</button>
+                </div>
+            </section>
+
+            <!-- Cards Grid Container -->
+            <div class="cards-grid" id="cards-grid">
+                <!-- Dynamically Populated by JavaScript -->
+            </div>
+        </main>
+    </section>
+
+    <!-- Floating Action Button for Cart -->
+    <div class="cart-floating-btn" id="cart-btn">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+    </div>
+
+    <!-- Booking / Cart Modal -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clipboard-list"></i> Your Bookings & Cart</h3>
+                <span class="close-modal" id="close-cart-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="cart-items">
+                <p class="empty-msg">Your cart is empty.</p>
+            </div>
+            <div class="modal-footer">
+                <div class="total-price">Total: <span id="cart-total">₹0.00</span></div>
+                <button class="btn-primary" id="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">Item added successfully!</div>
+
+    <!-- Admin Add Product Modal -->
+    <div class="modal-overlay" id="admin-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-boxes-stacked"></i> Add New Inventory Item</h3>
+                <span class="close-modal" id="close-admin-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="add-product-form">
+                    <div class="form-group">
+                        <label for="sku">SKU Code</label>
+                        <input type="text" id="sku" placeholder="e.g. CAT-TOY-01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Product Name</label>
+                        <input type="text" id="name" placeholder="e.g. Feather Teaser Wand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" id="category" placeholder="e.g. Food or Accessories" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="form-group">
+                            <label for="quantity">Stock Qty</label>
+                            <input type="number" id="quantity" placeholder="15" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="threshold">Reorder Threshold</label>
+                            <input type="number" id="threshold" placeholder="5" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Unit Price (₹)</label>
+                        <input type="number" step="0.01" id="price" placeholder="299.00" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Save to Database</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-right-to-bracket"></i> User Login</h3>
+                <span class="close-modal" id="close-login-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" placeholder="e.g. user@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="register-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-plus"></i> Create Account</h3>
+                <span class="close-modal" id="close-register-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" placeholder="e.g. John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email Address</label>
+                        <input type="email" id="reg-email" placeholder="e.g. user@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="Choose a password" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer style="background-color: #1a1e29; color: #f3f4f6; padding: 40px 20px 20px; margin-top: 60px; border-top: 4px solid #7c3aed;">
+        <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
+            <!-- Column 1: Brand Info -->
+            <div>
+                <h3 style="color: #fef08a; margin-bottom: 15px; font-size: 20px;"><i class="fa-solid fa-paw"></i> Poket Vet & Pet Shop</h3>
+                <p style="font-size: 14px; color: #9ca3af; line-height: 1.6;">Your all-in-one destination for premium pet supplies, specialized breeding and shelter services, and expert veterinary care.</p>
+            </div>
+            <!-- Column 2: Quick Links -->
+            <div>
+                <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 16px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; line-height: 2;">
+                    <li><a href="#home" style="color: #9ca3af; text-decoration: none; font-size: 14px;">Home</a></li>
+                    <li><a href="#shop" style="color: #9ca3af; text-decoration: none; font-size: 14px;">Shop Catalog</a></li>
+                    <li><a href="#services" style="color: #9ca3af; text-decoration: none; font-size: 14px;">Services (Breeding & Shelter)</a></li>
+                    <li><a href="#veterinary" style="color: #9ca3af; text-decoration: none; font-size: 14px;">Veterinary Care</a></li>
+                </ul>
+            </div>
+            <!-- Column 3: Contact & Hours -->
+            <div>
+                <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 16px;">Contact & Hours</h4>
+                <p style="font-size: 14px; color: #9ca3af; margin-bottom: 8px;"><i class="fa-solid fa-clock"></i> Mon - Sun: 8:00 AM - 9:00 PM</p>
+                <p style="font-size: 14px; color: #9ca3af; margin-bottom: 8px;"><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+                <p style="font-size: 14px; color: #9ca3af;"><i class="fa-solid fa-envelope"></i> support@poketvet.com</p>
+            </div>
+        </div>
+        <div style="max-width: 1280px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid #374151; text-align: center; font-size: 13px; color: #6b7280;">
+            &copy; 2026 Poket Vet & Pet Shop. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="js/pet-2.js"></script>
+</body>
+</html>
